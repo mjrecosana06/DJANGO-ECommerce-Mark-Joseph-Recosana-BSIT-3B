@@ -26,6 +26,9 @@ This is a simple yet functional E-Commerce web application built with Django. It
 ### About Page
 ![About Page](screenshots/about.png)
 
+### Register Page
+![Register Page](screenshots/register.png)
+
 ---
 
 ## 🔧 Features
