@@ -6,6 +6,25 @@ This is a simple yet functional E-Commerce web application built with Django. It
 
 ---
 
+## 📸 Screenshots
+
+### Home Page
+![Home Page](screenshots/home.png)
+
+### Store Page
+![Store Page](screenshots/store.png)
+
+### Cart Page
+![Cart Page](screenshots/cart.png)
+
+### Checkout Page
+![Checkout Page](screenshots/checkout.png)
+
+### Order History
+![Order History](screenshots/orders.png)
+
+---
+
 ## 🔧 Features
 
 * ✅ Product Listing & Image Support
