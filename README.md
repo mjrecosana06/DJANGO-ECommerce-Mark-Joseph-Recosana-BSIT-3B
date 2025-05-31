@@ -1,4 +1,4 @@
-# 🛒 Django E-Commerce Project
+# 🛒 Django E-Commerce Project ShopEase
 
 **Mark Joseph Recosana | BSIT 3B**
 
