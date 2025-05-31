@@ -1,0 +1,37 @@
+{% extends 'store/main.html' %}
+{% load static %}
+{% block content %}
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            <div class="card shadow-sm border-0">
+                <div class="card-body p-5">
+                    <div class="text-center mb-4">
+                        <img src="{% static 'assets/shopease.png' %}" alt="ShopEase Logo" style="height: 80px;">
+                    </div>
+                    <p class="lead">ShopEase is a modern e-commerce platform built to empower <strong>small businesses</strong> in the Philippines. Developed by <strong>Mark Joseph Recosana</strong>, ShopEase helps local entrepreneurs bring their products online, reach more customers, and grow their business with ease.</p>
+                    <hr>
+                    <h4 class="mt-4">How ShopEase Supports Small Businesses</h4>
+                    <ul class="mb-4">
+                        <li>Easy product uploads with multiple images and detailed descriptions</li>
+                        <li>Simple, secure order management and tracking</li>
+                        <li>Cash on Delivery (COD) to build trust with customers</li>
+                        <li>Order status updates to keep buyers informed</li>
+                        <li>Modern, mobile-friendly design for all users</li>
+                    </ul>
+                    <h4 class="mt-4">Key Features</h4>
+                    <ul>
+                        <li>Beautiful, responsive storefront for your products</li>
+                        <li>Quick view with image carousel and product details</li>
+                        <li>Customer registration, login, and order history</li>
+                        <li>Admin dashboard for managing products and orders</li>
+                        <li>Customizable and ready for your business needs</li>
+                    </ul>
+                    <hr>
+                    <p class="mt-4">This project was developed by <strong>Mark Joseph Recosana</strong> as part of the BSIT 3B Django Project. Please visit the LinkTree below for Contact Info.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %} 

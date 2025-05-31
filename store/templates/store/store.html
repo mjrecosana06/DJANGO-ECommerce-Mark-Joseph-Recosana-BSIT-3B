@@ -1,21 +1,140 @@
 {% extends 'store/main.html' %}
 {% load static %}
 {% block content %}
-    <div class="row">
-{% for product in products %}
-      <div class="col-lg-4">
-<img class="thumbnail" src="{% if product.image %}{{ product.image.url }}{% else %}{% static 'assets/placeholder.jpg' %}{% endif %}" alt="{{ product.name }} image">
-		<div class="box-element product">
-			<h6><strong>{{product.name}}</strong></h6>
-			<hr>
-			<button data-product="{{product.id}}" data-action="add" class="btn btn-outline-secondary add-btn update-cart">Add to Cart</button>
-			<a class="btn btn-outline-success" href="#">View</a>
-			<h4 style="display: inline-block; float: right"><strong>
-            ₱{{product.price|floatformat:2}}</strong></h4>
-	     </div>
-     </div>
-    {% endfor %}
-     </div>
+<div class="container">
+    <div class="row mb-4">
+        <div class="col">
+            <h2 class="text-center mb-4">Featured Products</h2>
+        </div>
+    </div>
+    
+    <div class="product-grid">
+        {% for product in products %}
+        <div class="card fade-in">
+            <img src="{{product.imageURL}}" class="card-img-top" alt="{{product.name}}">
+            <div class="card-body">
+                <h5 class="card-title">{{product.name}}</h5>
+                <p class="card-text text-muted">₱{{product.price|floatformat:2}}</p>
+                <div class="d-flex justify-content-between align-items-center">
+                    <button data-product="{{product.id}}" data-action="add" class="btn btn-primary update-cart">
+                        <i class="fas fa-cart-plus me-2"></i>Add to Cart
+                    </button>
+                    <button class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#productModal{{product.id}}">
+                        <i class="fas fa-info-circle"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Product Modal -->
+        <div class="modal fade" id="productModal{{product.id}}" tabindex="-1" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">{{product.name}}</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div id="carousel{{product.id}}" class="carousel slide mb-3" data-bs-ride="carousel">
+                            <div class="carousel-inner rounded shadow-sm">
+                                {% if product.imageURL %}
+                                <div class="carousel-item active">
+                                    <img src="{{product.imageURL}}" class="d-block w-100 rounded" alt="{{product.name}}">
+                                </div>
+                                {% endif %}
+                                {% if product.image2URL %}
+                                <div class="carousel-item {% if not product.imageURL %}active{% endif %}">
+                                    <img src="{{product.image2URL}}" class="d-block w-100 rounded" alt="{{product.name}}">
+                                </div>
+                                {% endif %}
+                                {% if product.image3URL %}
+                                <div class="carousel-item {% if not product.imageURL and not product.image2URL %}active{% endif %}">
+                                    <img src="{{product.image3URL}}" class="d-block w-100 rounded" alt="{{product.name}}">
+                                </div>
+                                {% endif %}
+                            </div>
+                            <button class="carousel-control-prev" type="button" data-bs-target="#carousel{{product.id}}" data-bs-slide="prev">
+                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                <span class="visually-hidden">Previous</span>
+                            </button>
+                            <button class="carousel-control-next" type="button" data-bs-target="#carousel{{product.id}}" data-bs-slide="next">
+                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                <span class="visually-hidden">Next</span>
+                            </button>
+                            <!-- Thumbnails -->
+                            <div class="d-flex justify-content-center mt-3 gap-2">
+                                {% if product.imageURL %}
+                                <img src="{{product.imageURL}}" class="img-thumbnail border-2 border-primary carousel-thumb" style="width: 60px; height: 60px; object-fit: cover; cursor:pointer;" data-bs-target="#carousel{{product.id}}" data-bs-slide-to="0" {% if product.imageURL %}aria-current="true"{% endif %}>
+                                {% endif %}
+                                {% if product.image2URL %}
+                                <img src="{{product.image2URL}}" class="img-thumbnail carousel-thumb" style="width: 60px; height: 60px; object-fit: cover; cursor:pointer;" data-bs-target="#carousel{{product.id}}" data-bs-slide-to="1">
+                                {% endif %}
+                                {% if product.image3URL %}
+                                <img src="{{product.image3URL}}" class="img-thumbnail carousel-thumb" style="width: 60px; height: 60px; object-fit: cover; cursor:pointer;" data-bs-target="#carousel{{product.id}}" data-bs-slide-to="2">
+                                {% endif %}
+                            </div>
+                        </div>
+                        <div class="mb-2">
+                            <span class="badge bg-success mb-2">New</span>
+                        </div>
+                        <h5 class="fw-bold">{{product.name}}</h5>
+                        <p class="card-text text-muted">{{product.description}}</p>
+                        <p class="text-primary fw-bold fs-4">₱{{product.price|floatformat:2}}</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button data-product="{{product.id}}" data-action="add" class="btn btn-primary update-cart" data-bs-dismiss="modal">
+                            <i class="fas fa-cart-plus me-2"></i>Add to Cart
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+<!-- Toast Notification -->
+<div class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+    <div class="toast-header">
+        <i class="fas fa-shopping-cart me-2"></i>
+        <strong class="me-auto">Cart Update</strong>
+        <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+    </div>
+    <div class="toast-body">
+        Item added to cart successfully!
+    </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Initialize all tooltips
+    var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+    var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+        return new bootstrap.Tooltip(tooltipTriggerEl)
+    });
+
+    // Show toast notification when item is added to cart
+    var toastEl = document.querySelector('.toast');
+    var toast = new bootstrap.Toast(toastEl, {
+        autohide: true,
+        delay: 3000
+    });
+
+    document.querySelectorAll('.update-cart').forEach(button => {
+        button.addEventListener('click', function() {
+            toast.show();
+        });
+    });
+});
+</script>
+
+<style>
+.carousel-thumb.active, .carousel-thumb[aria-current="true"] {
+    border: 2px solid #0d6efd !important;
+    box-shadow: 0 0 0 2px #0d6efd33;
+}
+</style>
 {% endblock content %}
 
 
